@@ -1,0 +1,11 @@
+extends: ["spectral:oas", "spectral:asyncapi"]
+functions: [validRequired]
+
+rules:
+  valid-required-defined-properties:
+    message: "{{error}}"
+    severity: error
+    given: 
+      - $..schemas
+    then:
+      function: "validRequired"
