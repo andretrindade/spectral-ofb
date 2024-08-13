@@ -1,5 +1,5 @@
 extends: ["spectral:oas", "spectral:asyncapi"]
-functions: [validRequired]
+functions: [validRequired, validMinItemsArray]
 
 rules:
   valid-required-defined-properties:
@@ -9,3 +9,11 @@ rules:
       - $..schemas
     then:
       function: "validRequired"
+
+  valid-minItems-array:
+    message: "{{error}}"
+    severity: warn
+    given: 
+      - $..schemas
+    then:
+      function: "validMinItemsArray"
