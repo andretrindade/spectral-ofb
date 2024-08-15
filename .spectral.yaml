@@ -1,19 +1,19 @@
 extends: ["spectral:oas", "spectral:asyncapi"]
-functions: [validRequired, validMinItemsArray]
+functions: [validatesWhetherMandatoryFieldsAreDefined, validMinItemsArray]
 
 rules:
   valid-required-defined-properties:
     message: "{{error}}"
     severity: error
     given: 
-      - $..schemas
+      - $..[?(@.type == 'object' && @.required)]
     then:
-      function: "validRequired"
+      function: "validatesWhetherMandatoryFieldsAreDefined"
 
-  valid-minItems-array:
-    message: "{{error}}"
-    severity: warn
-    given: 
-      - $..schemas
-    then:
-      function: "validMinItemsArray"
+  # valid-minItems-array:
+  #   message: "{{error}}"
+  #   severity: warn
+  #   given: 
+  #     - $..schemas
+  #   then:
+  #     function: "validMinItemsArray"

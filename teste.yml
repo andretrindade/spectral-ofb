@@ -261,6 +261,28 @@
             "type": "string",
             "format": "email"
           },
+          "document": {
+            "type": "object",
+            "properties": {
+              "cpf": {
+                "type": "string"
+              },
+              "cpmfTeste": {
+                "type": "object",
+                "properties": {
+                  "campoTese": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "campoTese"
+                ] 
+              }
+            },
+            "required": [
+              "cpf"
+            ]
+          },
           "dateOfBirth": {
             "type": "string",
             "format": "date",
