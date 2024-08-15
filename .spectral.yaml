@@ -1,5 +1,5 @@
 extends: ["spectral:oas", "spectral:asyncapi"]
-functions: [validatesWhetherMandatoryFieldsAreDefined, validMinItemsArray]
+functions: [validatesWhetherMandatoryFieldsAreDefined, validatesIfMinItemsIsZeroForRequiredArrayField, validatesIfMinItemsIsOneForNotRequiredArrayField]
 
 rules:
   valid-required-defined-properties:
@@ -10,10 +10,18 @@ rules:
     then:
       function: "validatesWhetherMandatoryFieldsAreDefined"
 
-  # valid-minItems-array:
-  #   message: "{{error}}"
-  #   severity: warn
-  #   given: 
-  #     - $..schemas
-  #   then:
-  #     function: "validMinItemsArray"
+  valid-minItems-array-required:
+    message: "{{error}}"
+    severity: warn
+    given: 
+      - $..[?(@.type == 'object' && @.required)]
+    then:
+      function: "validatesIfMinItemsIsZeroForRequiredArrayField"
+
+  valid-minItems-array-not-required:
+    message: "{{error}}"
+    severity: warn
+    given: 
+      - $..[?(@.type == 'object' && @.required)]
+    then:
+      function: "validatesIfMinItemsIsOneForNotRequiredArrayField"
